@@ -5,13 +5,22 @@ from scripts.remover import remove_password
 from scripts.utils import load_passwords
 import datetime
 import shutil
+import sys
+
+print("🔧 DEBUG | sys.executable", sys.executable)
+print("🔧 DEBUG | __file__", __file__)
+
 
 def main():
-    PROJECT_ROOT = Path(__file__).parent.resolve()
-    input_dir = PROJECT_ROOT / "input"
-    output_dir = PROJECT_ROOT / "output"
-    log_dir = PROJECT_ROOT / "log"
-    passwords_path = PROJECT_ROOT / "passwords.yaml"
+    if getattr(sys, 'frozen', False):
+        project_root = Path(sys.executable).parent.resolve()
+    else:
+        project_root = Path(__file__).parent.resolve()
+
+    input_dir = project_root / "input"
+    output_dir = project_root / "output"
+    log_dir = project_root / "log"
+    passwords_path = "passwords.yaml"  # 僅傳檔名，讓 load_passwords 自行判定路徑
 
     # 🔥 每次執行前清空 log 資料夾
     if log_dir.exists():
@@ -26,7 +35,7 @@ def main():
     accounts = {item["account"]: item["name"] for item in data["excel_files"]}
 
     log_lines = []
-    processed_accounts = set()
+    processed_accounts = set() # ✅ 初始化 processed_accounts
 
     for input_path in input_dir.iterdir():
         if not input_path.is_file():
@@ -72,3 +81,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+    input("\n✅ 執行完畢，請按 Enter 關閉視窗...")
