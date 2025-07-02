@@ -171,5 +171,8 @@ cython_debug/
 *.xls
 *.pdf
 # ===============================
+# 排除密碼檔案
+passwords.yaml
+# ===============================
 
 # End of .gitignore
