@@ -170,6 +170,8 @@ cython_debug/
 *.xlsx
 *.xls
 *.pdf
+# Except requirements.txt
+!requirements.txt
 # ===============================
 # 排除密碼檔案
 passwords.yaml
