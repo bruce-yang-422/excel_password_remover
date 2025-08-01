@@ -6,3 +6,4 @@ olefile==0.47
 openpyxl==3.1.5
 pycparser==2.22
 PyYAML==6.0.2
+rarfile==4.1
