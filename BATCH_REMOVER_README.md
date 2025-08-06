@@ -14,11 +14,11 @@
 
 ### 輸入檔案
 - 檔名必須包含對應的 `account` 字串
-- 例如：`petboss5566_report.xlsx` 會匹配到 `account: petboss5566`
+- 例如：`testaccountA_report.xlsx` 會匹配到 `account: testaccountA`
 
 ### 輸出檔案
 - 格式：`{name}_{account}_{原始檔案名稱}.xlsx`
-- 例如：`萌寵要當家_petboss5566_petboss5566_report.xlsx`
+- 例如：`測試店家A_testaccountA_testaccountA_report.xlsx`
 
 ## 使用方式
 
@@ -39,9 +39,9 @@ python scripts/batch_password_remover.py
 將需要處理的 Excel 檔案放入 `input/` 資料夾：
 ```
 input/
-├── petboss5566_report.xlsx
-├── dogcatclub5566_data.xlsx
-├── petstar5566_orders.xlsx
+├── testaccountA_report.xlsx
+├── testaccountB_data.xlsx
+├── testaccountC_orders.xlsx
 └── ...
 ```
 
@@ -49,15 +49,15 @@ input/
 確保 `passwords.yaml` 包含對應的帳號設定：
 ```yaml
 excel_files:
-  - name: 萌寵要當家
-    account: petboss5566
-    password: "725389"
-  - name: 汪喵日總匯
-    account: dogcatclub5566
-    password: "692389"
-  - name: 毛寵星人樂園
-    account: petstar5566
-    password: "693289"
+  - name: 測試店家A
+    account: testaccountA
+    password: "123456"
+  - name: 測試店家B
+    account: testaccountB
+    password: "654321"
+  - name: 測試店家C
+    account: testaccountC
+    password: "abcdef"
 ```
 
 ### 3. 執行程式
@@ -67,9 +67,9 @@ excel_files:
 處理後的檔案會儲存在 `output/` 資料夾：
 ```
 output/
-├── 萌寵要當家_petboss5566_petboss5566_report.xlsx
-├── 汪喵日總匯_dogcatclub5566_dogcatclub5566_data.xlsx
-├── 毛寵星人樂園_petstar5566_petstar5566_orders.xlsx
+├── 測試店家A_testaccountA_testaccountA_report.xlsx
+├── 測試店家B_testaccountB_testaccountB_data.xlsx
+├── 測試店家C_testaccountC_testaccountC_orders.xlsx
 └── ...
 ```
 
@@ -81,11 +81,11 @@ output/
 
 ### 日誌範例
 ```
-🔓 正在處理：petboss5566_report.xlsx
-✅ 萌寵要當家 (petboss5566) - 成功移除密碼：萌寵要當家_petboss5566_petboss5566_report.xlsx
+🔓 正在處理：testaccountA_report.xlsx
+✅ 測試店家A (testaccountA) - 成功移除密碼：測試店家A_testaccountA_testaccountA_report.xlsx
 
-🔓 正在處理：dogcatclub5566_data.xlsx
-✅ 汪喵日總匯 (dogcatclub5566) - 檔案本身無密碼：汪喵日總匯_dogcatclub5566_dogcatclub5566_data.xlsx
+🔓 正在處理：testaccountB_data.xlsx
+✅ 測試店家B (testaccountB) - 檔案本身無密碼：測試店家B_testaccountB_testaccountB_data.xlsx
 
 ==================================================
 📊 處理統計
@@ -94,8 +94,8 @@ output/
 處理失敗：0
 
 ✅ 成功處理的檔案：
-  petboss5566_report.xlsx → 萌寵要當家_petboss5566_petboss5566_report.xlsx
-  dogcatclub5566_data.xlsx → 汪喵日總匯_dogcatclub5566_dogcatclub5566_data.xlsx
+  testaccountA_report.xlsx → 測試店家A_testaccountA_testaccountA_report.xlsx
+  testaccountB_data.xlsx → 測試店家B_testaccountB_testaccountB_data.xlsx
 ```
 
 ## 功能特色
