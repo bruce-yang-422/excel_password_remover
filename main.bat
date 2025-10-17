@@ -5,7 +5,7 @@ title Excel Password Remover
 call :SETUP_ENVIRONMENT
 if %errorlevel% neq 0 (
 echo A critical error occurred during environment setup. Exiting.
-echo 按任意鍵退出...
+echo Press any key to exit...
 pause >nul
 exit /b 1
 )
@@ -26,7 +26,7 @@ echo Error: Python not found, please install Python 3.7 or higher
 echo.
 echo Please visit https://www.python.org/downloads/ to download and install Python
 echo.
-echo 按任意鍵退出...
+echo Press any key to exit...
 pause >nul
 exit /b 1
 ) else (
@@ -40,7 +40,7 @@ echo Creating virtual environment...
 python -m venv .venv
 if errorlevel 1 (
 echo Failed to create virtual environment
-echo 按任意鍵退出...
+echo Press any key to exit...
 pause >nul
 exit /b 1
 )
@@ -55,7 +55,7 @@ echo Checking dependencies...
 if not exist "requirements.txt" (
 echo Error: "requirements.txt" file not found.
 echo Please create this file with required dependencies.
-echo 按任意鍵退出...
+echo Press any key to exit...
 pause >nul
 exit /b 1
 )
@@ -66,7 +66,7 @@ echo Installing dependencies...
 pip install -r requirements.txt
 if errorlevel 1 (
 echo Failed to install dependencies
-echo 按任意鍵退出...
+echo Press any key to exit...
 pause >nul
 exit /b 1
 )
@@ -93,6 +93,7 @@ echo Creating input folder...
 mkdir input
 echo Please put Excel files to process in input folder
 echo.
+echo Press any key to continue...
 pause
 goto MAIN_MENU
 )
@@ -132,6 +133,7 @@ echo   - input\coupang_files folder (Coupang 平台檔案)
 echo.
 echo 檔案命名規則: {shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}
 echo.
+echo Press any key to continue...
 pause
 goto MAIN_MENU
 )
@@ -142,6 +144,7 @@ echo.
 python scripts/batch_password_remover.py
 if errorlevel 1 (
 echo Script execution failed
+echo Press any key to exit...
 pause
 exit /b 1
 )
@@ -151,6 +154,6 @@ echo ========================================
 echo     Execution completed
 echo ========================================
 echo.
-echo 按任意鍵退出...
+echo Press any key to exit...
 pause >nul
 exit /b 0
