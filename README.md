@@ -36,7 +36,7 @@
 
 1. **下載專案**
    ```bash
-   git clone <repository-url>
+   git clone https://github.com/bruce-yang-422/excel_password_remover.git
    cd excel_password_remover
    ```
 
