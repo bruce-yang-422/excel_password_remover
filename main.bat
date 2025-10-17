@@ -5,6 +5,7 @@ title Excel Password Remover
 call :SETUP_ENVIRONMENT
 if %errorlevel% neq 0 (
 echo A critical error occurred during environment setup. Exiting.
+echo 按任意鍵退出...
 pause >nul
 exit /b 1
 )
@@ -25,6 +26,7 @@ echo Error: Python not found, please install Python 3.7 or higher
 echo.
 echo Please visit https://www.python.org/downloads/ to download and install Python
 echo.
+echo 按任意鍵退出...
 pause >nul
 exit /b 1
 ) else (
@@ -38,6 +40,7 @@ echo Creating virtual environment...
 python -m venv .venv
 if errorlevel 1 (
 echo Failed to create virtual environment
+echo 按任意鍵退出...
 pause >nul
 exit /b 1
 )
@@ -52,6 +55,7 @@ echo Checking dependencies...
 if not exist "requirements.txt" (
 echo Error: "requirements.txt" file not found.
 echo Please create this file with required dependencies.
+echo 按任意鍵退出...
 pause >nul
 exit /b 1
 )
@@ -62,6 +66,7 @@ echo Installing dependencies...
 pip install -r requirements.txt
 if errorlevel 1 (
 echo Failed to install dependencies
+echo 按任意鍵退出...
 pause >nul
 exit /b 1
 )
@@ -146,5 +151,6 @@ echo ========================================
 echo     Execution completed
 echo ========================================
 echo.
+echo 按任意鍵退出...
 pause >nul
 exit /b 0
