@@ -79,7 +79,8 @@ exit /b 0
 cls
 echo.
 echo ========================================
-echo     Batch File Password Removal
+echo     Excel Password Removal Tool
+echo     統一檔案命名規則版本
 echo ========================================
 echo.
 if not exist "input" (
@@ -108,13 +109,15 @@ if %ROOT_FILES_EXIST% neq 0 if %PLATFORM_FILES_EXIST% neq 0 (
 echo No files found in input folder or platform folders
 echo Please put .xlsx, .xls, .zip or .rar files in:
 echo   - input folder (root directory)
-echo   - input\Shopee_files folder
-echo   - input\MOMO_files folder  
-echo   - input\PChome_files folder
-echo   - input\Yahoo_files folder
-echo   - input\ETMall_files folder
-echo   - input\mo_store_plus_files folder
-echo   - input\coupang_files folder
+echo   - input\Shopee_files folder (蝦皮平台檔案)
+echo   - input\MOMO_files folder (MOMO 平台檔案)
+echo   - input\PChome_files folder (PChome 平台檔案)
+echo   - input\Yahoo_files folder (Yahoo 平台檔案)
+echo   - input\ETMall_files folder (ETMall 平台檔案)
+echo   - input\mo_store_plus_files folder (MO Store Plus 平台檔案)
+echo   - input\coupang_files folder (Coupang 平台檔案)
+echo.
+echo 檔案命名規則: {shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}
 echo.
 pause
 goto MAIN_MENU

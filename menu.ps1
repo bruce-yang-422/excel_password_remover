@@ -5,6 +5,7 @@
 Write-Host ""
 Write-Host "========================================" -ForegroundColor Green
 Write-Host "    Excel 密碼移除工具" -ForegroundColor Green
+Write-Host "    統一檔案命名規則版本" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
 Write-Host ""
 
@@ -79,13 +80,15 @@ if (-not $rootFilesExist -and -not $platformFilesExist) {
     Write-Host "在 input 資料夾或平台資料夾中找不到檔案" -ForegroundColor Red
     Write-Host "請將 .xlsx、.xls、.zip 或 .rar 檔案放入：" -ForegroundColor Yellow
     Write-Host "  - input 資料夾（根目錄）" -ForegroundColor Cyan
-    Write-Host "  - input\Shopee_files 資料夾" -ForegroundColor Cyan
-    Write-Host "  - input\MOMO_files 資料夾" -ForegroundColor Cyan
-    Write-Host "  - input\PChome_files 資料夾" -ForegroundColor Cyan
-    Write-Host "  - input\Yahoo_files 資料夾" -ForegroundColor Cyan
-    Write-Host "  - input\ETMall_files 資料夾" -ForegroundColor Cyan
-    Write-Host "  - input\mo_store_plus_files 資料夾" -ForegroundColor Cyan
-    Write-Host "  - input\coupang_files 資料夾" -ForegroundColor Cyan
+    Write-Host "  - input\Shopee_files 資料夾（蝦皮平台檔案）" -ForegroundColor Cyan
+    Write-Host "  - input\MOMO_files 資料夾（MOMO 平台檔案）" -ForegroundColor Cyan
+    Write-Host "  - input\PChome_files 資料夾（PChome 平台檔案）" -ForegroundColor Cyan
+    Write-Host "  - input\Yahoo_files 資料夾（Yahoo 平台檔案）" -ForegroundColor Cyan
+    Write-Host "  - input\ETMall_files 資料夾（ETMall 平台檔案）" -ForegroundColor Cyan
+    Write-Host "  - input\mo_store_plus_files 資料夾（MO Store Plus 平台檔案）" -ForegroundColor Cyan
+    Write-Host "  - input\coupang_files 資料夾（Coupang 平台檔案）" -ForegroundColor Cyan
+    Write-Host ""
+    Write-Host "檔案命名規則: {shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}" -ForegroundColor Magenta
     Write-Host ""
     Read-Host "按 Enter 鍵退出"
     exit 1

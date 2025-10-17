@@ -15,12 +15,13 @@
 處理後的檔案會按照以下格式重新命名：
 
 ```
-{shop_id}_{shop_account}_{shop_name}_{執行日期時間}.xlsx
+{shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}.xlsx
 ```
 
 **範例：**
-- `SH0021_yogurtmeow168_優格小喵_20250116_143052.xlsx`
-- `SH0001_petboss5566_萌寵要當家_20250116_143052.xlsx`
+- `SH0021_yogurtmeow168_優格小喵_20250116_143052_01.xlsx`
+- `SH0001_petboss5566_萌寵要當家_20250116_143052_01.xlsx`
+- `MOSP01_TP0007661_愛喵樂MO+_20250116_143052_01.xls`
 
 ## 🛠️ 系統需求
 
@@ -75,11 +76,19 @@ python scripts/batch_password_remover.py
 ```
 excel_password_remover/
 ├── input/                    # 放置需要處理的檔案
+│   ├── Shopee_files/         # 蝦皮平台檔案
+│   ├── MOMO_files/           # MOMO 平台檔案
+│   ├── PChome_files/         # PChome 平台檔案
+│   ├── Yahoo_files/          # Yahoo 平台檔案
+│   ├── ETMall_files/         # ETMall 平台檔案
+│   ├── mo_store_plus_files/  # MO Store Plus 平台檔案
+│   └── coupang_files/        # Coupang 平台檔案
 ├── output/                   # 處理後的檔案輸出位置
 ├── log/                      # 執行日誌檔案
-├── backup/                   # 檔案衝突備份
+├── temp/                     # 臨時檔案目錄
 ├── mapping/                  # 店家資料和密碼本
 │   ├── shops_master.json     # 店家資料和密碼
+│   ├── csv_to_json_converter.py  # CSV 轉 JSON 工具
 │   └── A02_Shops_Master - Shops_Master.csv
 ├── scripts/                  # Python 腳本檔案
 │   ├── batch_password_remover.py  # 主要處理腳本
@@ -103,12 +112,13 @@ excel_password_remover/
 ## 📋 處理流程
 
 1. **載入資料**：讀取 `mapping/shops_master.json` 中的店家資料和密碼
-2. **掃描檔案**：檢查 `input/` 目錄中的所有檔案
-3. **解壓縮**：處理壓縮檔案並提取 Excel 檔案
-4. **密碼破解**：嘗試所有可用密碼破解 Excel 檔案
-5. **重新命名**：根據店家資訊重新命名檔案
-6. **輸出結果**：將處理後的檔案移動到 `output/` 目錄
-7. **生成日誌**：記錄處理結果和錯誤資訊
+2. **掃描檔案**：檢查 `input/` 目錄及平台資料夾中的所有檔案
+3. **平台識別**：根據檔案所在資料夾識別對應平台
+4. **解壓縮**：處理壓縮檔案並提取 Excel 檔案
+5. **密碼破解**：使用平台特定密碼破解 Excel 檔案
+6. **重新命名**：使用統一格式 `{shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}` 重新命名檔案
+7. **輸出結果**：將處理後的檔案移動到 `output/` 目錄
+8. **生成日誌**：記錄處理結果和錯誤資訊
 
 ## ⚙️ 配置說明
 
@@ -118,15 +128,28 @@ excel_password_remover/
 
 ```json
 {
-  "password_index": {
-    "密碼": {
-      "platform": "平台名稱",
-      "shop_id": "店家ID",
-      "shop_account": "店家帳號",
-      "shop_name": "店家名稱",
-      "shop_status": "狀態",
-      "Universal Password": "通用密碼",
-      "Report Download Password": "報表下載密碼"
+  "platform_index": {
+    "Shopee": {
+      "密碼": {
+        "platform": "Shopee",
+        "shop_id": "SH0021",
+        "shop_account": "yogurtmeow168",
+        "shop_name": "優格小喵.",
+        "shop_status": "Active",
+        "Universal Password": "密碼",
+        "Report Download Password": "密碼"
+      }
+    },
+    "MOMO": {
+      "密碼": {
+        "platform": "MOMO",
+        "shop_id": "MOMO01",
+        "shop_account": "account123",
+        "shop_name": "店家名稱",
+        "shop_status": "Active",
+        "Universal Password": "密碼",
+        "Report Download Password": "密碼"
+      }
     }
   }
 }
@@ -137,7 +160,7 @@ excel_password_remover/
 如需更新密碼本，請：
 
 1. 修改 `mapping/A02_Shops_Master - Shops_Master.csv`
-2. 執行 `python scripts/csv_to_json.py` 轉換為 JSON 格式
+2. 執行 `python mapping/csv_to_json_converter.py` 轉換為 JSON 格式
 3. 重新執行程式
 
 ## 📊 輸出結果
@@ -183,6 +206,16 @@ excel_password_remover/
 - 確認檔案重新命名情況
 
 ## 📝 更新日誌
+
+### v3.0.0 (2025-01-17)
+- ✅ 重構專案架構，改為模組化設計
+- ✅ 新增平台分類資料夾支援
+- ✅ 統一檔案命名規則為 `{shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}`
+- ✅ 新增 CSV 到 JSON 轉換工具
+- ✅ 新增 PowerShell 執行腳本
+- ✅ 優化平台特定密碼測試邏輯
+- ✅ 保留商店名稱中的點號字符
+- ✅ 更新 .gitignore 排除敏感檔案
 
 ### v2.0.0 (2025-01-16)
 - ✅ 整合所有功能到單一腳本
