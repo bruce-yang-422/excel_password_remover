@@ -163,18 +163,31 @@ cython_debug/
 .cursorindexingignore
 
 # ===============================
-# 排除任何 txt / log / csv / xlsx / xls / pdf 檔案
+# 排除任何 txt / log / csv / xlsx / xls / pdf / 壓縮檔案
 *.txt
 *.log
 *.csv
 *.xlsx
 *.xls
 *.pdf
+# 壓縮檔案
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+*.bz2
 # Except requirements.txt
 !requirements.txt
 # ===============================
 # 排除密碼檔案
 passwords.yaml
+# ===============================
+# 排除專案特定目錄
+input/
+output/
+temp/
+log/
 # ===============================
 
 # End of .gitignore
