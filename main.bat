@@ -118,8 +118,15 @@ for %%d in (Shopee_files MOMO_files PChome_files Yahoo_files ETMall_files mo_sto
     )
 )
 
+:: If we reach here, no files were found in any platform folder
+goto :files_found
+
 :files_found
-if %ROOT_FILES_EXIST% neq 0 if %PLATFORM_FILES_EXIST% neq 0 (
+:: Check if any files were found
+if %ROOT_FILES_EXIST% equ 0 goto :start_processing
+if %PLATFORM_FILES_EXIST% equ 0 goto :start_processing
+
+:: No files found
 echo No files found in input folder or platform folders
 echo Please put .xlsx, .xls, .zip or .rar files in:
 echo   - input folder (root directory)
@@ -136,7 +143,8 @@ echo.
 echo Press any key to exit...
 pause
 exit /b 1
-)
+
+:start_processing
 
 echo Starting batch password removal...
 echo.
