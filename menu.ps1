@@ -58,7 +58,7 @@ if (-not (Test-Path "input")) {
 }
 
 # 檢查根目錄檔案
-$rootFiles = Get-ChildItem -Path "input" -Include "*.xlsx", "*.xls", "*.zip", "*.rar" -ErrorAction SilentlyContinue
+$rootFiles = Get-ChildItem -Path "input\*" -Include "*.xlsx", "*.xls", "*.zip", "*.rar" -File -ErrorAction SilentlyContinue
 $rootFilesExist = $rootFiles.Count -gt 0
 
 # 檢查平台資料夾檔案
@@ -68,7 +68,7 @@ $platformFilesExist = $false
 foreach ($folder in $platformFolders) {
     $folderPath = "input\$folder"
     if (Test-Path $folderPath) {
-        $files = Get-ChildItem -Path $folderPath -Include "*.xlsx", "*.xls", "*.zip", "*.rar" -ErrorAction SilentlyContinue
+        $files = Get-ChildItem -Path "$folderPath\*" -Include "*.xlsx", "*.xls", "*.zip", "*.rar" -File -ErrorAction SilentlyContinue
         if ($files.Count -gt 0) {
             $platformFilesExist = $true
             break
