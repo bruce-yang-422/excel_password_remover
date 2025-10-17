@@ -124,31 +124,33 @@ excel_password_remover/
 
 ### 店家資料格式
 
+**⚠️ 安全提醒：** 以下範例僅為格式說明，實際使用時請替換為真實的密碼和店家資訊。
+
 `mapping/shops_master.json` 檔案包含以下資訊：
 
 ```json
 {
   "platform_index": {
     "Shopee": {
-      "密碼": {
+      "實際密碼": {
         "platform": "Shopee",
         "shop_id": "SH0021",
         "shop_account": "yogurtmeow168",
         "shop_name": "優格小喵.",
         "shop_status": "Active",
-        "Universal Password": "密碼",
-        "Report Download Password": "密碼"
+        "Universal Password": "實際密碼",
+        "Report Download Password": "實際密碼"
       }
     },
     "MOMO": {
-      "密碼": {
+      "實際密碼": {
         "platform": "MOMO",
         "shop_id": "MOMO01",
         "shop_account": "account123",
         "shop_name": "店家名稱",
         "shop_status": "Active",
-        "Universal Password": "密碼",
-        "Report Download Password": "密碼"
+        "Universal Password": "實際密碼",
+        "Report Download Password": "實際密碼"
       }
     }
   }
