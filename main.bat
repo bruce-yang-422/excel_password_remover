@@ -94,17 +94,25 @@ goto MAIN_MENU
 
 :: Check for files in root input folder
 dir /b input\*.xlsx input\*.xls input\*.zip input\*.rar >nul 2>&1
-set ROOT_FILES_EXIST=%errorlevel%
+if errorlevel 1 (
+    set ROOT_FILES_EXIST=1
+) else (
+    set ROOT_FILES_EXIST=0
+)
 
 :: Check for files in platform folders
 set PLATFORM_FILES_EXIST=1
 for %%d in (Shopee_files MOMO_files PChome_files Yahoo_files ETMall_files mo_store_plus_files coupang_files) do (
     if exist "input\%%d" (
         dir /b "input\%%d\*.xlsx" "input\%%d\*.xls" "input\%%d\*.zip" "input\%%d\*.rar" >nul 2>&1
-        if not errorlevel 1 set PLATFORM_FILES_EXIST=0
+        if not errorlevel 1 (
+            set PLATFORM_FILES_EXIST=0
+            goto :files_found
+        )
     )
 )
 
+:files_found
 if %ROOT_FILES_EXIST% neq 0 if %PLATFORM_FILES_EXIST% neq 0 (
 echo No files found in input folder or platform folders
 echo Please put .xlsx, .xls, .zip or .rar files in:
