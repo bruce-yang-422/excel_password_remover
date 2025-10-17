@@ -1,51 +1,76 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Excel 密碼移除工具 - 完整整合版本
+Excel 密碼移除工具 - 平台分類版本 v3.0.0
 
 主要功能：
     🔓 自動破解 Excel 檔案密碼保護
     📦 處理壓縮檔案（ZIP/RAR）並解壓縮
-    🏷️  智能檔案重新命名：{shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}
+    🏷️  統一檔案重新命名：{shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}
     📊 生成詳細處理報告和日誌
     🔄 自動處理檔案衝突和備份
+    🎯 平台分類處理和密碼測試
 
 支援格式：
     - Excel: .xlsx, .xls
     - 壓縮檔: .zip, .rar
 
+支援平台：
+    - Shopee (蝦皮)
+    - MOMO (MOMO 購物)
+    - PChome (PChome 購物)
+    - Yahoo (Yahoo 購物)
+    - ETMall (東森購物)
+    - MO Store Plus
+    - Coupang
+
 使用方法：
     python scripts/batch_password_remover.py
     或直接執行 main.bat / menu.ps1
 
+資料夾結構：
+    input/
+    ├── Shopee_files/         # 蝦皮平台檔案
+    ├── MOMO_files/           # MOMO 平台檔案
+    ├── PChome_files/         # PChome 平台檔案
+    ├── Yahoo_files/          # Yahoo 平台檔案
+    ├── ETMall_files/         # ETMall 平台檔案
+    ├── mo_store_plus_files/  # MO Store Plus 平台檔案
+    └── coupang_files/        # Coupang 平台檔案
+
 處理流程：
     1. 載入店家資料和密碼本 (mapping/shops_master.json)
-    2. 掃描 input/ 目錄中的檔案
-    3. 解壓縮壓縮檔案並提取 Excel 檔案
-    4. 嘗試所有密碼破解 Excel 檔案
-    5. 重新命名檔案並移動到 output/ 目錄
-    6. 生成處理報告和詳細日誌
+    2. 掃描 input/ 目錄及平台資料夾中的檔案
+    3. 根據檔案所在資料夾識別對應平台
+    4. 解壓縮壓縮檔案並提取 Excel 檔案
+    5. 使用平台特定密碼破解 Excel 檔案
+    6. 統一重新命名檔案並移動到 output/ 目錄
+    7. 生成處理報告和詳細日誌
 
 輸出結果：
     - output/ 目錄：處理後的檔案
     - log/ 目錄：詳細處理日誌
-    - backup/ 目錄：檔案衝突備份
+    - temp/ 目錄：臨時檔案
 
 檔案命名規則：
     {shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}
-    範例：SH0021_yogurtmeow168_優格小喵_20250116_143052_01.xlsx
+    範例：
+    - SH0021_yogurtmeow168_優格小喵_20250116_143052_01.xlsx
+    - MOSP01_TP0007661_愛喵樂MO+_20250116_143052_01.xls
+    - ETM001_541767_東森購物_20250116_143052_01.xls
 
-整合功能：
-    - 工具函數模組
-    - Excel 密碼移除核心
-    - 壓縮檔案處理核心
-    - 批次處理邏輯
+平台特定功能：
+    - 平台資料夾自動識別
+    - 平台特定密碼測試
+    - 蝦皮平台 Order.all 檔案過濾
+    - 商店名稱點號保留
 
 注意事項：
     - 確保 mapping/shops_master.json 檔案存在
     - 支援檔案名稱衝突自動處理
     - 自動備份重複檔案
     - 支援密碼保護的壓縮檔案
+    - 平台密碼僅測試對應平台，避免混淆
 """
 
 import sys
