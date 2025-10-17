@@ -186,10 +186,13 @@ passwords.yaml
 !package.json
 !package-lock.json
 # ===============================
-# 排除專案特定目錄
-input/
-output/
-temp/
+# 排除專案特定目錄（但保留 .gitkeep 檔案）
+input/*
+!input/*/.gitkeep
+output/*
+!output/.gitkeep
+temp/*
+!temp/.gitkeep
 log/
 # ===============================
 
