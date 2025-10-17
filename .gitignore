@@ -180,8 +180,11 @@ cython_debug/
 # Except requirements.txt
 !requirements.txt
 # ===============================
-# 排除密碼檔案
+# 排除密碼檔案和敏感資料
 passwords.yaml
+*.json
+!package.json
+!package-lock.json
 # ===============================
 # 排除專案特定目錄
 input/
