@@ -93,9 +93,9 @@ echo Creating input folder...
 mkdir input
 echo Please put Excel files to process in input folder
 echo.
-echo Press any key to continue...
+echo Press any key to exit...
 pause
-goto MAIN_MENU
+exit /b 1
 )
 
 :: Check for files in root input folder
@@ -133,9 +133,9 @@ echo   - input\coupang_files folder (Coupang platform files)
 echo.
 echo File naming rule: {shop_id}_{shop_account}_{shop_name}_{execution_date_time}_{serial_number}
 echo.
-echo Press any key to continue...
+echo Press any key to exit...
 pause
-goto MAIN_MENU
+exit /b 1
 )
 
 echo Starting batch password removal...
