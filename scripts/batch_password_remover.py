@@ -6,7 +6,7 @@ Excel 密碼移除工具 - 平台分類版本 v3.0.0
 主要功能：
     🔓 自動破解 Excel 檔案密碼保護
     📦 處理壓縮檔案（ZIP/RAR）並解壓縮
-    🏷️  統一檔案重新命名：{shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}
+    🏷️ 統一檔案重新命名：{shop_name}_{shop_id}_{shop_account}_{執行日期時間}_{流水號}
     📊 生成詳細處理報告和日誌
     🔄 自動處理檔案衝突和備份
     🎯 平台分類處理和密碼測試
@@ -53,11 +53,11 @@ Excel 密碼移除工具 - 平台分類版本 v3.0.0
     - temp/ 目錄：臨時檔案
 
 檔案命名規則：
-    {shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}
+    {shop_name}_{shop_id}_{shop_account}_{執行日期時間}_{流水號}
     範例：
-    - SH0021_yogurtmeow168_優格小喵_20250116_143052_01.xlsx
-    - MOSP01_TP0007661_愛喵樂MO+_20250116_143052_01.xls
-    - ETM001_541767_東森購物_20250116_143052_01.xls
+    - 優格小喵_SH0021_yogurtmeow168_20250116_143052_01.xlsx
+    - 愛喵樂MO+_MOSP01_TP0007661_20250116_143052_01.xls
+    - 東森購物_ETM001_541767_20250116_143052_01.xls
 
 平台特定功能：
     - 平台資料夾自動識別
@@ -463,13 +463,13 @@ def process_compressed_files(input_dir: Union[str, Path], output_dir: Union[str,
                             # 重新命名為 MO_Store_Plus_[原始檔名]
                             new_filename = f"MO_Store_Plus_{extracted_file}"
                         else:
-                            # 重新命名為 [shop_id]_[shop_account]_[shop_name]_[執行日期時間]_[流水號]
+                            # 重新命名為 [shop_name]_[shop_id]_[shop_account]_[執行日期時間]_[流水號]
                             shop_id = account_info.get("shop_id", "UNKNOWN")
                             shop_account = account_info.get("account", "UNKNOWN")
                             # 只替換空格，保留點號
                             safe_name = name.replace(' ', '_')
                             file_ext = Path(extracted_file).suffix
-                            base_name = f"{shop_id}_{shop_account}_{safe_name}"
+                            base_name = f"{safe_name}_{shop_id}_{shop_account}"
                             timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                             new_filename = generate_unique_filename(output_dir, base_name, file_ext, timestamp)
                         
@@ -616,10 +616,10 @@ def try_platform_passwords(file_path: Path, platform_index: Dict[str, Any], plat
                 
                 file_ext = file_path.suffix.lower()
                 
-                # 統一使用標準格式：{shop_id}_{shop_account}_{shop_name}_{執行日期時間}_{流水號}
+                # 統一使用標準格式：{shop_name}_{shop_id}_{shop_account}_{執行日期時間}_{流水號}
                 # 只替換空格，保留點號
                 safe_name = shop_name.replace(' ', '_')
-                base_name = f"{shop_id}_{shop_account}_{safe_name}"
+                base_name = f"{safe_name}_{shop_id}_{shop_account}"
                 timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
                 new_filename = generate_unique_filename(output_dir, base_name, file_ext, timestamp)
 
