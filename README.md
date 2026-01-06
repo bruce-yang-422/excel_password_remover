@@ -1,5 +1,10 @@
 # Excel 密碼移除工具
 
+![License](https://img.shields.io/badge/license-MIT-blue.svg)
+![Python](https://img.shields.io/badge/python-3.7+-green.svg)
+![Platform](https://img.shields.io/badge/platform-Windows-lightgrey.svg)
+![Version](https://img.shields.io/badge/version-v3.0.0-orange.svg)
+
 一個專為處理 Excel 檔案密碼保護而設計的自動化工具，支援批次處理、壓縮檔案解壓縮和智能檔案重新命名。
 
 ## 🚀 主要功能
