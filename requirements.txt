@@ -1,9 +1,16 @@
+altgraph==0.17.4
 cffi==1.17.1
 cryptography==45.0.4
 et_xmlfile==2.0.0
 msoffcrypto-tool==5.4.2
 olefile==0.47
 openpyxl==3.1.5
+packaging==25.0
+pefile==2023.2.7
 pycparser==2.22
+pyinstaller==6.14.1
+pyinstaller-hooks-contrib==2025.5
+pywin32-ctypes==0.2.3
 PyYAML==6.0.2
 rarfile==4.1
+setuptools==80.9.0

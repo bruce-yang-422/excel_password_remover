@@ -49,6 +49,12 @@
    - 確保 `mapping/shops_master.json` 檔案存在
    - 建立必要的資料夾結構
 
+4. **設定 UnRAR.exe（處理 RAR 檔案需要）**
+   - 下載 UnRAR for Windows：https://www.rarlab.com/rar_add.htm
+   - 解壓縮下載的檔案，找到 `UnRAR.exe`
+   - 將 `UnRAR.exe` 複製到 `scripts/` 資料夾中
+   - **注意**：如果不需要處理 RAR 檔案，可以跳過此步驟
+
 ## 🎯 使用方法
 
 ### 方法一：直接執行（推薦）
@@ -193,8 +199,10 @@ excel_password_remover/
    ```
 
 3. **RAR 檔案無法解壓縮**
-   - 安裝 UnRAR 工具
-   - 或使用 Chocolatey：`choco install unrar -y`
+   - 請確認 `scripts/UnRAR.exe` 檔案存在
+   - 如果不存在，請下載 UnRAR for Windows：https://www.rarlab.com/rar_add.htm
+   - 將 `UnRAR.exe` 複製到 `scripts/` 資料夾中
+   - 重新執行程式
 
 4. **密碼本檔案不存在**
    - 確保 `mapping/shops_master.json` 檔案存在

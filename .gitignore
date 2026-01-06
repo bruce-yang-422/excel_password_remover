@@ -37,6 +37,8 @@ MANIFEST
 # PyInstaller
 *.manifest
 *.spec
+# 編譯後的執行檔（不應該追蹤，可以從源碼重新生成）
+*.exe
 
 # Installer logs
 pip-log.txt
@@ -194,6 +196,10 @@ output/*
 temp/*
 !temp/.gitkeep
 log/
+# ===============================
+# 排除專案工具和生成檔案
+tree.txt
+scripts/TreeMaker.py
 # ===============================
 
 # End of .gitignore

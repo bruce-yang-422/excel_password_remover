@@ -92,25 +92,58 @@ from typing import Dict, List, Optional, Union, Any
 # 工具函數模組 (來自 utils.py)
 # =============================================================================
 
+def get_base_path() -> Path:
+    """
+    取得專案根目錄路徑
+    支援 Python 模式、exe 單文件模式、exe 目錄模式
+    """
+    if getattr(sys, 'frozen', False):
+        # PyInstaller 單文件模式：使用 _MEIPASS 臨時目錄
+        if hasattr(sys, '_MEIPASS'):
+            # 單文件模式：資源在臨時目錄，但資料檔案應該在 exe 同目錄
+            return Path(sys.executable).parent
+        else:
+            # exe 目錄模式：exe 所在目錄
+            return Path(sys.executable).parent
+    else:
+        # Python 模式：腳本所在目錄的父目錄（專案根目錄）
+        return Path(__file__).parent.parent
+
+# ==========================================
+# 初始化 UnRAR 路徑 (支援打包模式)
+# ==========================================
+def init_unrar_tool():
+    """
+    設定 rarfile 的工具路徑。
+    支援：開發環境 (scripts/UnRAR.exe) 與 打包環境 (sys._MEIPASS/UnRAR.exe)
+    """
+    if rarfile is None:
+        return
+
+    # 1. 判斷是否為 PyInstaller 打包後的環境
+    if getattr(sys, 'frozen', False) and hasattr(sys, '_MEIPASS'):
+        # 打包模式：工具會被解壓到臨時目錄 (_MEIPASS)
+        base_path = Path(sys._MEIPASS)
+        unrar_path = base_path / "UnRAR.exe"
+    else:
+        # 開發模式：工具在 scripts 資料夾 (相對於此腳本)
+        base_path = Path(__file__).parent
+        unrar_path = base_path / "UnRAR.exe"
+
+    # 2. 強制設定 rarfile 的工具路徑
+    # 注意：如果不設定，rarfile 會去系統 PATH 找，找不到就會報錯
+    rarfile.UNRAR_TOOL = str(unrar_path)
+    
+    # Debug 訊息 (可選)
+    # print(f"[DEBUG] UnRAR path set to: {unrar_path}")
+
 def load_passwords(json_filename: str = "mapping/shops_master.json") -> Dict[str, List[Dict[str, Any]]]:
     """
     讀取 mapping/shops_master.json
     exe 模式與 py 模式皆從執行檔所在資料夾讀取
     """
-    if getattr(sys, 'frozen', False):
-        # exe mode
-        base_path = Path(sys.executable).parent
-    else:
-        # python mode
-        base_path = Path(__file__).parent.parent
-
+    base_path = get_base_path()
     json_path = base_path / json_filename
-
-    # debug print
-    print("DEBUG | load_passwords")
-    print("sys.executable:", sys.executable)
-    print("base_path:", base_path)
-    print("json_path:", json_path)
 
     if not json_path.exists():
         raise FileNotFoundError(f"找不到 {json_filename}: {json_path}")
@@ -234,12 +267,11 @@ def extract_rar(rar_path: Union[str, Path], extract_to: Union[str, Path], passwo
     except rarfile.BadRarFile:
         raise Exception(f"無效的 RAR 檔案：{rar_path}")
     except rarfile.RarCannotExec:
-        # 系統找不到解壓工具 (unrar/unar/bsdtar)，提示安裝方式
+        # 系統找不到解壓工具，提示安裝 WinRAR
         raise Exception(
-            "系統未找到可用的 RAR 解壓工具。請安裝 UnRAR 並加入 PATH，或安裝 PowerShell 的 7-Zip/bsdtar。\n"
-            "建議（其一即可）：\n"
-            "  1) 以系統管理員開啟 PowerShell 後執行: choco install unrar -y\n"
-            "  2) 從 RARLAB 下載 UnRAR，將 unrar.exe 放入 PATH 目錄\n"
+            "系統未找到可用的 RAR 解壓工具。\n"
+            "請安裝 WinRAR 以支援 RAR 檔案解壓縮功能。\n"
+            "下載網址：https://www.winrar.com.tw/"
         )
     except Exception as e:  # 處理其他所有異常，包括密碼錯誤
         if "password" in str(e).lower():
@@ -697,11 +729,11 @@ def process_root_compressed_files(compressed_files: List[Path], output_dir: Path
 def main():
     """主程式：批次處理 Excel 檔案密碼移除"""
     
-    # 取得專案根目錄
-    if getattr(sys, 'frozen', False):
-        project_root = Path(sys.executable).parent.resolve()
-    else:
-        project_root = Path(__file__).parent.parent.resolve()
+    # 初始化 UnRAR 工具路徑
+    init_unrar_tool()
+    
+    # 取得專案根目錄（使用統一的函數）
+    project_root = get_base_path().resolve()
 
     input_dir = project_root / "input"
     output_dir = project_root / "output"
