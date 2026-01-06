@@ -19,20 +19,46 @@
 ```
 
 **範例：**
-- `SH0021_yogurtmeow168_優格小喵_20250116_143052_01.xlsx`
-- `SH0001_petboss5566_萌寵要當家_20250116_143052_01.xlsx`
-- `MOSP01_TP0007661_愛喵樂MO+_20250116_143052_01.xls`
+- `SHOP01_accountA_店家名稱A_20250116_143052_01.xlsx`
+- `SHOP02_accountB_店家名稱B_20250116_143052_01.xlsx`
+- `SHOP03_accountC_店家名稱C_20250116_143052_01.xls`
+
+> 上述範例僅為示意，實際檔名會依照 `shops_master.json` 中的店家資料自動產生。
 
 ## 🛠️ 系統需求
 
 - **作業系統**：Windows 10/11
-- **Python**：3.7 或以上版本
+- **Python**：3.7 或以上版本（僅開發模式需要）
 - **依賴套件**：
   - `msoffcrypto-tool` - Excel 密碼處理
   - `rarfile` - RAR 檔案解壓縮
   - `zipfile` - ZIP 檔案解壓縮（Python 內建）
 
-## 📦 安裝說明
+## 📥 下載
+
+### 快速下載（推薦）
+
+**Windows 執行檔版本（無需安裝 Python）：**
+
+[![Download](https://img.shields.io/badge/Download-v3.0.0-blue)](https://github.com/bruce-yang-422/excel_password_remover/releases/download/v3.0.0/Excel_Password_Remover_v3.exe)
+
+👉 [下載 Excel_Password_Remover_v3.exe](https://github.com/bruce-yang-422/excel_password_remover/releases/download/v3.0.0/Excel_Password_Remover_v3.exe)
+
+**查看所有版本：** [GitHub Releases](https://github.com/bruce-yang-422/excel_password_remover/releases/tag/v3.0.0)
+
+### 使用執行檔版本
+
+1. 下載 `Excel_Password_Remover_v3.exe`
+2. 解壓縮到任意目錄
+3. 確保 `mapping/shops_master.json` 檔案存在
+4. 將要處理的檔案放入 `input/` 資料夾
+5. 雙擊執行 `Excel_Password_Remover_v3.exe`
+
+**詳細操作說明請參考：** [操作說明.md](操作說明.md)
+
+---
+
+## 📦 安裝說明（開發模式）
 
 1. **下載專案**
    ```bash
@@ -57,7 +83,13 @@
 
 ## 🎯 使用方法
 
-### 方法一：直接執行（推薦）
+### 方法一：使用執行檔（推薦，無需安裝 Python）
+
+1. 下載 `Excel_Password_Remover_v3.exe`（見上方下載連結）
+2. 解壓縮並執行
+3. 詳細說明請參考 [操作說明.md](操作說明.md)
+
+### 方法二：從源碼執行（開發模式）
 
 **Windows 用戶：**
 ```bash
@@ -71,8 +103,7 @@ main.bat
 .\menu.ps1
 ```
 
-### 方法二：Python 直接執行
-
+**Python 直接執行：**
 ```bash
 python scripts/batch_password_remover.py
 ```
@@ -138,25 +169,25 @@ excel_password_remover/
 {
   "platform_index": {
     "Shopee": {
-      "實際密碼": {
+      "EXAMPLE_PASSWORD": {
         "platform": "Shopee",
-        "shop_id": "SH0021",
-        "shop_account": "yogurtmeow168",
-        "shop_name": "優格小喵.",
+        "shop_id": "SHOP01",
+        "shop_account": "shop_account_1",
+        "shop_name": "店家名稱A",
         "shop_status": "Active",
-        "Universal Password": "實際密碼",
-        "Report Download Password": "實際密碼"
+        "Universal Password": "EXAMPLE_PASSWORD",
+        "Report Download Password": "EXAMPLE_PASSWORD"
       }
     },
     "MOMO": {
-      "實際密碼": {
+      "EXAMPLE_PASSWORD": {
         "platform": "MOMO",
         "shop_id": "MOMO01",
-        "shop_account": "account123",
-        "shop_name": "店家名稱",
+        "shop_account": "shop_account_2",
+        "shop_name": "店家名稱B",
         "shop_status": "Active",
-        "Universal Password": "實際密碼",
-        "Report Download Password": "實際密碼"
+        "Universal Password": "EXAMPLE_PASSWORD",
+        "Report Download Password": "EXAMPLE_PASSWORD"
       }
     }
   }
@@ -240,7 +271,19 @@ excel_password_remover/
 
 ## 📄 授權條款
 
-本專案採用 MIT 授權條款，詳見 LICENSE 檔案。
+本專案採用 [MIT License](LICENSE) 開源授權條款。
+
+### MIT License 特點
+
+- ✅ **商業使用**：可用於商業專案
+- ✅ **修改**：可以修改原始碼
+- ✅ **分發**：可以分發原始碼和編譯版本
+- ✅ **私人使用**：可以用於私人專案
+- ✅ **專利使用**：可以使用專利
+- ⚠️ **授權和版權聲明**：必須包含原始授權聲明和版權聲明
+- ❌ **責任**：不提供任何擔保
+
+**完整授權條款請參閱 [LICENSE](LICENSE) 檔案。**
 
 ## 🤝 貢獻指南
 
